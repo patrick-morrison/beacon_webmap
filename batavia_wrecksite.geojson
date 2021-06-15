@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "batavia_wrecksite",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "name": "Batavia" }, "geometry": { "type": "Point", "coordinates": [ 113.791931220091328, -28.491644158135951 ] } }
+]
+}
