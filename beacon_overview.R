@@ -30,7 +30,7 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
                     colors =c("blue", "coral"),
                     labels= c("Burial","NHL"),
                     opacity = 1) %>% 
-  addMeasure() %>% 
+  addMeasure(primaryLengthUnit = "meters", secondaryLengthUnit  = "feet", primaryAreaUnit="sqmeters") %>% 
   #Add image overlays using custom javascript
   htmlwidgets::onRender("
       function(el, x) {
