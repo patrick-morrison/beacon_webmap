@@ -13,6 +13,10 @@ popup = paste0( "<b>ID: ", bib$ID, "</b></br>",
 #National heritage list boundary
 nhl <- geojson_sf("nhl_boundary.geojson")
 
+# create the string for responsiveness that will be injected in the <head> section of the leaflet output html file.
+# https://stackoverflow.com/questions/46453598/is-there-a-way-to-make-leaflet-map-popup-responsive-on-r
+responsiveness = "\'<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\'"
+
 map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>% 
   addProviderTiles(providers$Esri.WorldImagery,
                    options = providerTileOptions(minZoom = 8, maxZoom = 24),
@@ -30,7 +34,8 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
                     colors =c("blue", "coral"),
                     labels= c("Burial","NHL"),
                     opacity = 1) %>% 
-  addMeasure(primaryLengthUnit = "meters", secondaryLengthUnit  = "feet", primaryAreaUnit="sqmeters") %>% 
+  addMeasure(primaryLengthUnit = "meters", secondaryLengthUnit  = "feet",
+             primaryAreaUnit="sqmeters") %>% 
   #Add image overlays using custom javascript
   htmlwidgets::onRender("
       function(el, x) {
@@ -51,8 +56,11 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
 
         L.imageOverlay(imageUrl, imageBounds).addTo(myMap);
       }
-      ")
+      ") %>% 
+  htmlwidgets::onRender(paste0("
+    function(el, x) {
+      $('head').append(",responsiveness,");
+    }"))
 map
 
 saveWidget(map, file="beacon.html")
-
