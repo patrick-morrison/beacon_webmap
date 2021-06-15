@@ -18,6 +18,7 @@ nhl <- geojson_sf("nhl_boundary.geojson")
 responsiveness = "\'<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\'"
 
 map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>% 
+  fitBounds(113.788, -28.4761, 113.7845, -28.4744) %>% 
   addProviderTiles(providers$Esri.WorldImagery,
                    options = providerTileOptions(minZoom = 8, maxZoom = 24),
                    group="basemap") %>% 
@@ -28,7 +29,6 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
   addCircles(113.7919,-28.49164, color='green',
              label = "Batavia wreck",
              labelOptions = labelOptions(noHide = T, direction = "bottom")) %>%
-  fitBounds(113.788, -28.4761, 113.7845, -28.4744) %>% 
   addScaleBar(position = 'bottomleft') %>% 
   addLegend("topright", 
                     colors =c("blue", "coral"),
@@ -60,7 +60,14 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
   htmlwidgets::onRender(paste0("
     function(el, x) {
       $('head').append(",responsiveness,");
-    }"))
+    }")) %>% 
+htmlwidgets::onRender("
+      function(el, x) {
+        console.log(this);
+        var myMap = this;
+        var bounds = [[-28.4761, 113.788], [-28.4744, 113.7845]];
+        myMap.fitBounds(bounds);
+      }
+      ") #custom javascript to fix extent after adjusting for phone size
 map
-
 saveWidget(map, file="beacon.html")
