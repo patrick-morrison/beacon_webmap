@@ -28,7 +28,7 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
   addCircles(113.7919,-28.49164, color='green',
              label = "Batavia wreck",
              labelOptions = labelOptions(noHide = T, direction = "bottom")) %>%
-  fitBounds(113.788, -28.47561, 113.784, -28.47523) %>% 
+  fitBounds(113.788, -28.4761, 113.7845, -28.4744) %>% 
   addScaleBar(position = 'bottomleft') %>% 
   addLegend("topright", 
                     colors =c("blue", "coral"),
