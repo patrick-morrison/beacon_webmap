@@ -15,11 +15,16 @@ popup = paste0( "<b>ID: ", bib$ID, "</b></br>",
 
 batavia <- geojson_sf("batavia_wrecksite.geojson")
 nhl <- geojson_sf("nhl_boundary.geojson")
-beacon <- raster::stack('beacon.tif')# %>% raster::aggregate(1.2)
+beacon <- raster::stack('beacon.tif')# %>% raster::aggregate(5)
+bib5to10 <- raster('BIB5-10.tif')# %>% raster::aggregate(5)
+
+pal <- colorRampPalette(c("black", "white"))
+plot(bib5to10, col=pal(10))
 
 map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>% 
-  addProviderTiles(providers$CartoDB, options = providerTileOptions(minZoom = 8, maxZoom = 24)) %>% 
-  addRasterRGB(beacon, 1,2,3, group = "True colours", project = FALSE, maxBytes = 10 * 1024 * 1024,) %>%
+  addProviderTiles(providers$Esri.WorldImagery, options = providerTileOptions(minZoom = 8, maxZoom = 24), group="basemap") %>% 
+  addRasterRGB(beacon, 1,2,3, group = "True colours", project = FALSE, maxBytes = 10 * 1024 * 1024) %>%
+  addRasterImage(bib5to10, colors=pal(10), project = TRUE, maxBytes = 10 * 1024 * 1024) %>%
   addPolygons(data=nhl, fill = FALSE, color = "coral") %>% 
   addPolygons(popup=popup, popupOptions = popupOptions(maxWidth = 150)) %>% 
   addCircles(data=batavia, color='green', label = "Batavia wreck site", labelOptions = labelOptions(noHide = T, direction = "bottom"))%>%
@@ -27,19 +32,12 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
   addScaleBar(position = 'bottomleft') %>% 
   addLegend("topright", 
                     colors =c("blue", "coral"),
-                    labels= c("Burial","NHL Boundary"),
-                    opacity = 1)
+                    labels= c("Burial","NHL"),
+                    opacity = 1) %>% 
+  groupOptions("True colours", zoomLevels = 17:30) %>% 
+  groupOptions("basemap", zoomLevels = 0:18) %>% 
+  groupOptions("burials", zoomLevels = 20:30)
 map
 
-map$dependencies <- list(
-  htmlDependency(
-    name = "custom"
-    ,version = "1"
-    # if local file use file instead of href below
-    #  with an absolute path
-    ,src = c(file="custom-1")
-    ,stylesheet = "leaflet_custom.css"
-  )
-)
 saveWidget(map, file="beacon.html")
 
