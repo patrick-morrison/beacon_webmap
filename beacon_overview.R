@@ -13,10 +13,6 @@ popup = paste0( "<b>ID: ", bib$ID, "</b></br>",
 #National heritage list boundary
 nhl <- geojson_sf("nhl_boundary.geojson")
 
-# create the string for responsiveness that will be injected in the <head> section of the leaflet output html file.
-# https://stackoverflow.com/questions/46453598/is-there-a-way-to-make-leaflet-map-popup-responsive-on-r
-responsiveness = "\'<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\'"
-
 map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>% 
   fitBounds(113.788, -28.4761, 113.7845, -28.4744) %>% 
   addProviderTiles(providers$Esri.WorldImagery,
@@ -59,15 +55,11 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
       ") %>% 
   htmlwidgets::onRender(paste0("
     function(el, x) {
-      $('head').append(",responsiveness,");
-    }")) %>% 
-htmlwidgets::onRender("
-      function(el, x) {
-        console.log(this);
-        var myMap = this;
-        var bounds = [[-28.4761, 113.788], [-28.4744, 113.7845]];
-        myMap.fitBounds(bounds);
-      }
-      ") #custom javascript to fix extent after adjusting for phone size
+      $('head').append('<meta name=\"viewport\"content=\"width=device-width, initial-scale=1.0\">\');
+      console.log(this);
+      var myMap = this;
+      var bounds = [[-28.4761, 113.788], [-28.4744, 113.7845]];
+      myMap.fitBounds(bounds);
+    }"))
 map
 saveWidget(map, file="beacon.html")
