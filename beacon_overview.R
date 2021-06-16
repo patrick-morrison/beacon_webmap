@@ -5,13 +5,26 @@ library(htmlwidgets)
 
 #Burials
 bib <- geojson_sf("bib_shapes.geojson")
+kev <- geojson_sf("kevin_2018_outlines.geojson") %>%
+  st_cast(to="POLYGON")
+
+kev$geometry[1]
+
+bib$geometry[7] <- kev$geometry[5]
+bib$geometry[10] <- kev$geometry[4]
+bib$geometry[12] <- kev$geometry[1]
+bib$geometry[11] <- kev$geometry[3]
+bib$geometry[8] <- kev$geometry[2]
+
+bib <- bib[bib$ID!="BIB17U",]
+
 popup = paste0( "<b>ID: ", bib$ID, "</b></br>",
                 "Description: " , bib$Description, "</br>",
                 "Sex: " , bib$Sex,"</br>",
                 "Stature: " , bib$Stature)
 
 #National heritage list boundary
-nhl <- geojson_sf("nhl_boundary.geojson")
+nhl <- geojson_sf("nhl_boundary.geojson") 
 
 map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>% 
   addProviderTiles(providers$Esri.WorldImagery,
@@ -19,7 +32,7 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
                    group="basemap") %>% 
   groupOptions("basemap", zoomLevels = 0:18) %>% 
   addPolygons(data=nhl, fill = FALSE, color = "coral") %>% 
-  addPolygons(popup=popup,
+  addPolygons(opacity = 0.5, weight = 2, popup=popup,
               popupOptions = popupOptions(maxWidth = 150)) %>% 
   addCircles(113.7919,-28.49164, color='green',
              label = "Batavia wreck",
@@ -64,12 +77,12 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
       function(el, x) {
         console.log(this);
         var myMap = this;
-        var imageUrl = 'https://patrick-morrison.github.io/beacon_webmap/bib_2018_3857.jpg';
-        var imageBounds = [[-28.4753928, 113.7856736], [-28.4754714, 113.7857809]];
+        var imageUrl = 'https://patrick-morrison.github.io/beacon_webmap/TR_08NOV_3857_KevinEdwards.jpg';
+        var imageBounds = [[-28.475406190117, 113.785688393598], [-28.475466315117, 113.785758113598]];
         var bib5to10 = L.imageOverlay(imageUrl, imageBounds);
         myMap.addLayer(bib5to10);
         myMap.on('zoomend', function() {
-            if (myMap.getZoom() <22){
+            if (myMap.getZoom() <20){
             myMap.removeLayer(bib5to10);
         }
         else {
