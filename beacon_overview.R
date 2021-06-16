@@ -37,8 +37,8 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
       function(el, x) {
         console.log(this);
         var myMap = this;
-        var imageUrl = 'https://patrick-morrison.github.io/beacon_webmap/beacon_3857.jpg';
-        var imageBounds = [[-28.473630, 113.783930], [-28.477024, 113.788778]];
+        var imageUrl = 'https://patrick-morrison.github.io/beacon_webmap/beacon_3857_high.jpg';
+        var imageBounds = [[-28.4731733528342, 113.78348182555], [-28.4775356528342, 113.78963552555]];
 
         L.imageOverlay(imageUrl, imageBounds).addTo(myMap);
       }
