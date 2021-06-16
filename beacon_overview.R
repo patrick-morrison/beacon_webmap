@@ -10,10 +10,6 @@ popup = paste0( "<b>ID: ", bib$ID, "</b></br>",
                 "Sex: " , bib$Sex,"</br>",
                 "Stature: " , bib$Stature)
 
-beacon <- raster::stack('beacon_3857.tif') %>% raster::aggregate(5)
-raster::crs(beacon)
-
-
 #National heritage list boundary
 nhl <- geojson_sf("nhl_boundary.geojson")
 
@@ -23,7 +19,6 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
                    options = providerTileOptions(minZoom = 8, maxZoom = 24),
                    group="basemap") %>% 
   groupOptions("basemap", zoomLevels = 0:18) %>% 
-  addRasterRGB(beacon, 1,2,3, group = "True colours", project = FALSE, maxBytes = 10 * 1024 * 1024,) %>% 
   addPolygons(data=nhl, fill = FALSE, color = "coral") %>% 
   addPolygons(popup=popup,
               popupOptions = popupOptions(maxWidth = 150)) %>% 
