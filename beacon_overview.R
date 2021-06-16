@@ -10,6 +10,10 @@ popup = paste0( "<b>ID: ", bib$ID, "</b></br>",
                 "Sex: " , bib$Sex,"</br>",
                 "Stature: " , bib$Stature)
 
+beacon <- raster::stack('beacon_3857.tif') %>% raster::aggregate(5)
+raster::crs(beacon)
+
+
 #National heritage list boundary
 nhl <- geojson_sf("nhl_boundary.geojson")
 
@@ -19,6 +23,7 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
                    options = providerTileOptions(minZoom = 8, maxZoom = 24),
                    group="basemap") %>% 
   groupOptions("basemap", zoomLevels = 0:18) %>% 
+  addRasterRGB(beacon, 1,2,3, group = "True colours", project = FALSE, maxBytes = 10 * 1024 * 1024,) %>% 
   addPolygons(data=nhl, fill = FALSE, color = "coral") %>% 
   addPolygons(popup=popup,
               popupOptions = popupOptions(maxWidth = 150)) %>% 
@@ -38,7 +43,7 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
         console.log(this);
         var myMap = this;
         var imageUrl = 'https://patrick-morrison.github.io/beacon_webmap/beacon_3857.jpg';
-        var imageBounds = [[-28.473630, 113.783930], [-28.473630, 113.38930]];
+        var imageBounds = [[-28.473630, 113.783930], [-28.477024, 113.788778]];
 
         L.imageOverlay(imageUrl, imageBounds).addTo(myMap);
       }
