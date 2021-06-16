@@ -32,7 +32,7 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
                    group="basemap") %>% 
   groupOptions("basemap", zoomLevels = 0:18) %>% 
   addPolygons(data=nhl, fill = FALSE, color = "coral") %>% 
-  addPolygons(opacity = 0.5, weight = 2, popup=popup,
+  addPolygons(opacity = 0.6, fillOpacity = 0.05, weight = 3, popup=popup,
               popupOptions = popupOptions(maxWidth = 150)) %>% 
   addCircles(113.7919,-28.49164, color='green',
              label = "Batavia wreck",
