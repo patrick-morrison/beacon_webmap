@@ -55,7 +55,7 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
       ") %>% 
   htmlwidgets::onRender(paste0("
     function(el, x) {
-      $('head').append('<meta name=\"viewport\"content=\"width=device-width, initial-scale=1.0\">\');
+      $('head').append('<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\" />');
       console.log(this);
       var myMap = this;
       var bounds = [[-28.474113661653, 113.78443148926], [-28.476557261653, 113.78766148926]];;
