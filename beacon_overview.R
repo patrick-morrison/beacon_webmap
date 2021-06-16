@@ -14,7 +14,6 @@ popup = paste0( "<b>ID: ", bib$ID, "</b></br>",
 nhl <- geojson_sf("nhl_boundary.geojson")
 
 map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>% 
-  fitBounds(113.788, -28.4761, 113.7845, -28.4744) %>% 
   addProviderTiles(providers$Esri.WorldImagery,
                    options = providerTileOptions(minZoom = 8, maxZoom = 24),
                    group="basemap") %>% 
@@ -58,8 +57,7 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
       $('head').append('<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\" />');
       console.log(this);
       var myMap = this;
-      var bounds = [[-28.474113661653, 113.78443148926], [-28.476557261653, 113.78766148926]];;
-      myMap.fitBounds(bounds);
+      myMap.setView([-28.475447, 113.785701], 19)
     }"))
 map
 saveWidget(map, file="beacon.html")
