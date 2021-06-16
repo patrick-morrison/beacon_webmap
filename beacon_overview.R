@@ -60,6 +60,24 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
             });
         }
       ") %>% 
+  htmlwidgets::onRender("
+      function(el, x) {
+        console.log(this);
+        var myMap = this;
+        var imageUrl = 'https://patrick-morrison.github.io/beacon_webmap/bib_2018_3857.jpg';
+        var imageBounds = [[-28.4754057893951, 113.785670824435], [-28.4754843093951, 113.785778272435]];
+        var bib5to10 = L.imageOverlay(imageUrl, imageBounds);
+        myMap.addLayer(bib5to10);
+        myMap.on('zoomend', function() {
+            if (myMap.getZoom() <23){
+            myMap.removeLayer(bib5to10);
+        }
+        else {
+                myMap.addLayer(bib5to10);
+            }
+            });
+        }
+      ") %>% 
   htmlwidgets::onRender(paste0("
     function(el, x) {
       $('head').append('<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\" />');
