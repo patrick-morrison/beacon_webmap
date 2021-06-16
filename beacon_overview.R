@@ -48,9 +48,17 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
         var myMap = this;
         var imageUrl = 'https://patrick-morrison.github.io/beacon_webmap/BIB5-10.jpg';
         var imageBounds = [[-28.475220, 113.785611], [-28.475235, 113.785630]];
-
-        L.imageOverlay(imageUrl, imageBounds).addTo(myMap);
-      }
+        var bib5to10 = L.imageOverlay(imageUrl, imageBounds);
+        myMap.addLayer(bib5to10);
+        myMap.on('zoomend', function() {
+            if (myMap.getZoom() <20){
+            myMap.removeLayer(bib5to10);
+        }
+        else {
+                myMap.addLayer(bib5to10);
+            }
+            });
+        }
       ") %>% 
   htmlwidgets::onRender(paste0("
     function(el, x) {
