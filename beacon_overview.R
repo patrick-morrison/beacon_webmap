@@ -57,7 +57,7 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
       $('head').append('<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\" />');
       console.log(this);
       var myMap = this;
-      myMap.setView([-28.475447, 113.785701], 19)
+      myMap.setView([-28.47557, 113.785956], 19)
     }"))
 map
 saveWidget(map, file="beacon.html")
