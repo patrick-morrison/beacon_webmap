@@ -58,8 +58,8 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
       function(el, x) {
         console.log(this);
         var myMap = this;
-        var imageUrl = 'https://patrick-morrison.github.io/beacon_webmap/overlays/beacon_3857_high.jpg';
-        var imageBounds = [[-28.4774508535988, 113.78355632555], [-28.4732519528342, 113.789549642437]];
+        var imageUrl = 'https://patrick-morrison.github.io/beacon_webmap/overlays/beacon_landgate_3857.jpg';
+        var imageBounds = [[-28.4767451632643, 113.78459900452], [-28.4738129947051, 113.78811918142]];
 
         L.imageOverlay(imageUrl, imageBounds, {opacity:1}).addTo(myMap);
       }
