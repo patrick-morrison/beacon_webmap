@@ -48,8 +48,8 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
              labelOptions = labelOptions(noHide = T, direction = "bottom")) %>%
   addScaleBar(position = 'bottomleft') %>% 
   addLegend("topright", 
-                    colors =c("blue", "coral"),
-                    labels= c("Burial","NHL"),
+                    colors =c("blue", "coral", 'green'),
+                    labels= c("Burial","NHL", 'Artefact'),
                     opacity = 1) %>% 
   addMeasure(primaryLengthUnit = "meters", secondaryLengthUnit  = "feet",
              primaryAreaUnit="sqmeters") %>% 
@@ -59,9 +59,9 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
         console.log(this);
         var myMap = this;
         var imageUrl = 'https://patrick-morrison.github.io/beacon_webmap/beacon_3857_high.jpg';
-        var imageBounds = [[-28.4731733528342, 113.78348182555], [-28.4775356528342, 113.78963552555]];
+        var imageBounds = [[-28.4774508535988, 113.78355632555], [-28.4732519528342, 113.789549642437]];
 
-        L.imageOverlay(imageUrl, imageBounds).addTo(myMap);
+        L.imageOverlay(imageUrl, imageBounds, {opacity:1}).addTo(myMap);
       }
       ") %>% 
   htmlwidgets::onRender("
@@ -87,7 +87,7 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
         console.log(this);
         var myMap = this;
         var imageUrl = 'https://patrick-morrison.github.io/beacon_webmap/TR_08NOV_3857_KevinEdwards.jpg';
-        var imageBounds = [[-28.475406190117, 113.785688393598], [-28.475466315117, 113.785758113598]];
+        var imageBounds = [[-28.4754649721572, 113.785689443598], [-28.475407300117, 113.785757071056]];
         var bib5to10 = L.imageOverlay(imageUrl, imageBounds);
         myMap.addLayer(bib5to10);
         myMap.on('zoomend', function() {
@@ -105,7 +105,7 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
         console.log(this);
         var myMap = this;
         var imageUrl = 'https://patrick-morrison.github.io/beacon_webmap/TR_08NOV_BILS_6160_3857_KevinEdwards.jpg';
-        var imageBounds = [[-28.4754422982744, 113.785745171317], [-28.4754469974744, 113.785750031317]];
+        var imageBounds = [[-28.4754466683899, 113.785745471317], [-28.4754426150744, 113.785749686212]];
         var bils6160 = L.imageOverlay(imageUrl, imageBounds);
         myMap.addLayer(bils6160);
         myMap.on('zoomend', function() {
