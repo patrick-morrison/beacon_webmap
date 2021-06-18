@@ -6,4 +6,4 @@ Deployed to: https://patrick-morrison.github.io/beacon_webmap/beacon.html
 
 <img width="1054" alt="Screen Shot 2021-06-15 at 4 34 24 pm" src="https://user-images.githubusercontent.com/2309844/122020763-a3950280-cdf7-11eb-9661-adfca7b52073.png">
 
-![Screen Shot 2021-06-18 at 11 34 51 am](https://user-images.githubusercontent.com/2309844/122502499-55674580-d029-11eb-84ca-c1dba793df50.png)
+![Screen Shot 2021-06-18 at 3 10 53 pm](https://user-images.githubusercontent.com/2309844/122521507-79d21a80-d047-11eb-9f11-85992d4a3228.png)
