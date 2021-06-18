@@ -126,4 +126,4 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
       myMap.setView([-28.47557, 113.785956], 19)
     }"))
 map
-saveWidget(map, file="beacon.html")
+saveWidget(map, file="beacon.html", title="Beacon Island Map")
