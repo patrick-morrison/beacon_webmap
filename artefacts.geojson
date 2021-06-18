@@ -1,8 +1,0 @@
-{
-"type": "FeatureCollection",
-"name": "artefacts",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-"features": [
-{ "type": "Feature", "properties": { "Name": "BILS6106", "Embed": "https:\/\/sketchfab.com\/models\/dae9826f76f84970a1148d1665f9eb81\/embed" }, "geometry": { "type": "Point", "coordinates": [ 113.785747571187997, -28.475444703155123 ] } }
-]
-}
