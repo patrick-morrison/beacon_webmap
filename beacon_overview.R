@@ -4,8 +4,8 @@ library(geojsonsf)
 library(htmlwidgets)
 
 #Burials
-bib <- geojson_sf("bib_shapes.geojson")
-kev <- geojson_sf("kevin_2018_outlines.geojson") %>%
+bib <- geojson_sf("spatial/bib_shapes.geojson")
+kev <- geojson_sf("spatial/kevin_2018_outlines.geojson") %>%
   st_cast(to="POLYGON")
 
 kev$geometry[1]
@@ -24,11 +24,11 @@ popup = paste0( "<b>ID: ", bib$ID, "</b></br>",
                 "Stature: " , bib$Stature)
 
 #National heritage list boundary
-nhl <- geojson_sf("nhl_boundary.geojson") 
+nhl <- geojson_sf("spatial/nhl_boundary.geojson") 
 
 #3D models
 
-artefacts <- geojson_sf("artefacts.geojson")
+artefacts <- geojson_sf("spatial/artefacts.geojson")
 artefacts_popup <- paste0("<b>",artefacts$Name,"<b></br><div class=\"sketchfab-embed-wrapper\"> <iframe title=\"",artefacts$Name,"\" frameborder=\"0\" allowfullscreen mozallowfullscreen=\"true\" webkitallowfullscreen=\"true\" allow=\"fullscreen; autoplay; vr\" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share height=\"300\" src=\"", artefacts$Embed, "\">")
 
 
@@ -58,7 +58,7 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
       function(el, x) {
         console.log(this);
         var myMap = this;
-        var imageUrl = 'https://patrick-morrison.github.io/beacon_webmap/beacon_3857_high.jpg';
+        var imageUrl = 'https://patrick-morrison.github.io/beacon_webmap/overlays/beacon_3857_high.jpg';
         var imageBounds = [[-28.4774508535988, 113.78355632555], [-28.4732519528342, 113.789549642437]];
 
         L.imageOverlay(imageUrl, imageBounds, {opacity:1}).addTo(myMap);
@@ -68,7 +68,7 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
       function(el, x) {
         console.log(this);
         var myMap = this;
-        var imageUrl = 'https://patrick-morrison.github.io/beacon_webmap/BIB5-10.jpg';
+        var imageUrl = 'https://patrick-morrison.github.io/beacon_webmap/overlays/BIB5-10.jpg';
         var imageBounds = [[-28.475220, 113.785611], [-28.475235, 113.785630]];
         var bib5to10 = L.imageOverlay(imageUrl, imageBounds);
         myMap.addLayer(bib5to10);
@@ -86,7 +86,7 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
       function(el, x) {
         console.log(this);
         var myMap = this;
-        var imageUrl = 'https://patrick-morrison.github.io/beacon_webmap/TR_08NOV_3857_KevinEdwards.jpg';
+        var imageUrl = 'https://patrick-morrison.github.io/beacon_webmap/overlays/TR_08NOV_3857_KevinEdwards.jpg';
         var imageBounds = [[-28.4754649721572, 113.785689443598], [-28.475407300117, 113.785757071056]];
         var bib5to10 = L.imageOverlay(imageUrl, imageBounds);
         myMap.addLayer(bib5to10);
@@ -104,7 +104,7 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
       function(el, x) {
         console.log(this);
         var myMap = this;
-        var imageUrl = 'https://patrick-morrison.github.io/beacon_webmap/TR_08NOV_BILS_6160_3857_KevinEdwards.jpg';
+        var imageUrl = 'https://patrick-morrison.github.io/beacon_webmap/overlays/TR_08NOV_BILS_6160_3857_KevinEdwards.jpg';
         var imageBounds = [[-28.4754466683899, 113.785745471317], [-28.4754426150744, 113.785749686212]];
         var bils6160 = L.imageOverlay(imageUrl, imageBounds);
         myMap.addLayer(bils6160);
