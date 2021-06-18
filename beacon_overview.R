@@ -26,12 +26,21 @@ popup = paste0( "<b>ID: ", bib$ID, "</b></br>",
 #National heritage list boundary
 nhl <- geojson_sf("nhl_boundary.geojson") 
 
+#3D models
+
+artefacts <- geojson_sf("artefacts.geojson")
+artefacts_popup <- paste0("<b>",artefacts$Name,"<b></br><div class=\"sketchfab-embed-wrapper\"> <iframe title=\"",artefacts$Name,"\" frameborder=\"0\" allowfullscreen mozallowfullscreen=\"true\" webkitallowfullscreen=\"true\" allow=\"fullscreen; autoplay; vr\" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share height=\"300\" src=\"", artefacts$Embed, "\">")
+
+
 map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>% 
   addProviderTiles(providers$Esri.WorldImagery,
                    options = providerTileOptions(minZoom = 8, maxZoom = 24),
                    group="basemap") %>% 
   groupOptions("basemap", zoomLevels = 0:18) %>% 
   addPolygons(data=nhl, fill = FALSE, color = "coral") %>% 
+  addCircles(data=artefacts, popup = artefacts_popup,
+             color = "green", radius = .1, fillOpacity = 0.05, weight = 3,
+             popupOptions = popupOptions(maxHeight = 300)) %>% 
   addPolygons(opacity = 0.6, fillOpacity = 0.05, weight = 3, popup=popup,
               popupOptions = popupOptions(maxWidth = 150)) %>% 
   addCircles(113.7919,-28.49164, color='green',
@@ -87,6 +96,24 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
         }
         else {
                 myMap.addLayer(bib5to10);
+            }
+            });
+        }
+      ") %>% 
+  htmlwidgets::onRender("
+      function(el, x) {
+        console.log(this);
+        var myMap = this;
+        var imageUrl = 'https://patrick-morrison.github.io/beacon_webmap/TR_08NOV_BILS_6160_3857_KevinEdwards.jpg';
+        var imageBounds = [[-28.4754422982744, 113.785745171317], [-28.4754469974744, 113.785750031317]];
+        var bils6160 = L.imageOverlay(imageUrl, imageBounds);
+        myMap.addLayer(bils6160);
+        myMap.on('zoomend', function() {
+            if (myMap.getZoom() <22){
+            myMap.removeLayer(bils6160);
+        }
+        else {
+                myMap.addLayer(bils6160);
             }
             });
         }

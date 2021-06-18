@@ -3,6 +3,7 @@
 #Then save EPSG:3857 geotiff as .jpg
 
 library(raster)
+library(tidyverse)
 raster <- raster(file.choose()) %>% aggregate(10)
 projected <- projectRaster(raster, crs="+init=EPSG:4326") 
 ex <- extent(projected)
