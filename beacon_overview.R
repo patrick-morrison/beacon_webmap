@@ -40,7 +40,7 @@ map <- leaflet(bib, options = leafletOptions(preferCanvas = TRUE)) %>%
   addPolygons(data=nhl, fill = FALSE, color = "coral") %>% 
   addCircles(data=artefacts, popup = artefacts_popup,
              color = "green", radius = .1, fillOpacity = 0.05, weight = 3,
-             popupOptions = popupOptions(maxHeight = 300)) %>% 
+             popupOptions = popupOptions(maxHeight = 320)) %>% 
   addPolygons(opacity = 0.6, fillOpacity = 0.05, weight = 3, popup=popup,
               popupOptions = popupOptions(maxWidth = 150)) %>% 
   addCircles(113.7919,-28.49164, color='green',
